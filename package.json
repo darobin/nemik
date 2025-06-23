@@ -33,6 +33,9 @@
   "dependencies": {
     "chalk": "^5.4.1",
     "commander": "^14.0.0",
+    "get-port": "^7.1.0",
+    "google-oauth2-env-vars": "^1.4.0",
+    "googleapis": "^150.0.1",
     "keytar": "^7.9.0"
   }
 }

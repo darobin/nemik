@@ -6,7 +6,7 @@ import { isAbsolute, join } from "node:path";
 import { readFile } from "node:fs/promises";
 import { program } from 'commander';
 import { setupAndRun } from "./lib/engine.js";
-import { addCredentials } from "./lib/credentials.js";
+import { addCredentials, generateGoogleToken } from "./lib/credentials.js";
 import makeRel from './lib/rel.js';
 
 const rel = makeRel(import.meta.url);
@@ -29,6 +29,15 @@ credentials
     await addCredentials(service, account, password);
   })
 ;
+credentials
+  .command('gdoc')
+  .argument('<service>', 'the key for which these credentials are for')
+  .argument('<clientId>', 'the Google client ID')
+  .argument('<clientSecret>', 'the Google client secret')
+  .action(async (service, clientId, clientSecret) => {
+    await generateGoogleToken(service, clientId, clientSecret);
+  })
+;
 
 // watch
 program
@@ -45,7 +54,6 @@ program
     await setupAndRun(cwd(), { watch: false });
   })
 ;
-
 
 program.parse();
 
