@@ -1,0 +1,36 @@
+{
+  "name": "nemik",
+  "type": "module",
+  "private": true,
+  "version": "0.0.1",
+  "description": "Document Maker",
+  "author": "Robin Berjon <robin@berjon.com>",
+  "scripts": {},
+  "bin": {
+    "nemik": "./bin.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/darobin/nemik.git"
+  },
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "mocha": true,
+      "es2021": true
+    },
+    "extends": "eslint:recommended",
+    "overrides": [],
+    "parserOptions": {
+      "ecmaVersion": "latest",
+      "sourceType": "module"
+    },
+    "rules": {}
+  },
+  "devDependencies": {
+    "eslint": "^8.26.0"
+  },
+  "dependencies": {
+    "commander": "^14.0.0"
+  }
+}
