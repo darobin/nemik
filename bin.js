@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 
-import { cwd, exit } from "node:process";
-import { isAbsolute, join, extname } from "node:path";
-import { createReadStream, createWriteStream } from "node:fs";
+import { cwd } from "node:process";
+import { isAbsolute, join } from "node:path";
+// import { createReadStream, createWriteStream } from "node:fs";
 import { readFile } from "node:fs/promises";
 import { program } from 'commander';
+import { setupAndRun } from "./lib/engine.js";
 import { addCredentials } from "./lib/credentials.js";
 import makeRel from './lib/rel.js';
 
@@ -30,9 +31,20 @@ credentials
 ;
 
 // watch
-
+program
+  .command('watch')
+  .action(async () => {
+    await setupAndRun(cwd(), { watch: true });
+  })
+;
 
 // run
+program
+  .command('run')
+  .action(async () => {
+    await setupAndRun(cwd(), { watch: false });
+  })
+;
 
 
 program.parse();
@@ -41,7 +53,7 @@ function absolutise (path) {
   return isAbsolute(path) ? path : join(cwd(), path);
 }
 
-function die (str) {
-  console.error(`Error: ${str}`);
-  exit(1);
-}
+// function die (str) {
+//   console.error(`Error: ${str}`);
+//   exit(1);
+// }
