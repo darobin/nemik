@@ -135,3 +135,4 @@ dist
 .yarn/install-state.gz
 .pnp.*
 examples/basic/book2.*
+examples/basic/.nemik
