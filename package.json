@@ -36,6 +36,7 @@
     "get-port": "^7.1.0",
     "google-oauth2-env-vars": "^1.4.0",
     "googleapis": "^150.0.1",
+    "js-beautify": "^1.15.4",
     "jsdom": "^26.1.0",
     "keytar": "^7.9.0"
   }
