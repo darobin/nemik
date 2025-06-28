@@ -64,16 +64,17 @@ program
 // run
 program
   .command('run')
-  .action(async () => {
-    await setupAndRun(cwd(), { watch: false });
+  .option('--cache', 'use saved value if available')
+  .action(async ({ cache }) => {
+    await setupAndRun(cwd(), { watch: false, cache });
   })
 ;
 
 program.parse();
 
-function absolutise (path) {
-  return isAbsolute(path) ? path : join(cwd(), path);
-}
+// function absolutise (path) {
+//   return isAbsolute(path) ? path : join(cwd(), path);
+// }
 
 // function die (str) {
 //   console.error(`Error: ${str}`);
