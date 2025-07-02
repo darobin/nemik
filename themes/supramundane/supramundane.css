@@ -1,3 +1,9 @@
+
+@font-face {
+  font-family: "Catamaran";
+  src: url("Catamaran-VariableFont_wght.ttf");
+  font-style: normal;
+}
 @font-face {
   font-family: "Josefin Sans";
   src: url("JosefinSans-VariableFont_wght.ttf");
@@ -20,8 +26,9 @@
 }
 
 :root {
-  --page-width: 960px;
-  --header-fam: "Josefin Sans";
+  --page-width: 21cm;
+  --header-fam: "Catamaran";
+  --logo-fam: "Josefin Sans";
   --body-fam: "Mulish";
   --line: 0;
   --mid-green: #4f9c5a;
@@ -38,22 +45,8 @@
 html, body {
   margin: 0;
   padding: 0;
-  height: 100vh;
-  width: 100%;
   font-size: 16px;
   font-family: var(--body-fam);
-  font-size: 1.25rem;
-  line-height: 1.5;
-  font-weight: 200;
-}
-.skip-to-content-link {
-  left: 50%;
-  position: absolute;
-  transform: translateY(-100%);
-  transition: transform 0.3s;
-}
-.skip-to-content-link:focus {
-  transform: translateY(0%);
 }
 header, nav, main, footer {
   max-width: var(--page-width);
@@ -62,42 +55,13 @@ header, nav, main, footer {
   padding-right: 1rem;
 }
 header {
-  display: flex;
-  padding-top: 2rem;
+  padding-top: 8rem;
+  padding-bottom: 2rem;
 }
-header a.home-link {
-  font-size: 64px;
-  font-family: var(--header-fam);
-  margin: 0;
-  line-height: 1;
-  font-weight: 100;
-  z-index: 10;
-  color: inherit;
-  text-decoration: none;
-}
-header svg {
-  margin-top: -8px;
-  margin-left: 4px;
-}
-nav {
-  margin-bottom: 4rem;
-}
-nav ul {
-  list-style: none;
-  text-align: right;
-  margin: 0;
-}
-nav li {
-  display: inline-block;
-  margin-left: 0.2rem;
-}
-footer {
-  font-size: 0.8rem;
-  text-align: right;
-  margin-top: 4rem;
-  /* padding-top: 1rem; */
-  padding-bottom: 1rem;
-  border-top: 1px dotted var(--highlight);
+main {
+  font-size: 1.1rem;
+  font-weight: 300;
+  line-height: 1.4;
 }
 a {
   color: inherit;
@@ -122,9 +86,25 @@ hr::after {
   height: 50px;
   background: var(--highlight, #000);
   content: "";
-  mask: url(/img/asterism.svg);
+  mask: url(../img/asterism.svg);
   mask-position: center;
   mask-repeat: no-repeat;
+}
+.title, .subtitle, h1, h2, h3, h4, h5, h6 {
+  font-family: var(--header-fam);
+}
+.title {
+  font-size: 4rem;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+}
+.subtitle {
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: #222;
+  margin: 0;
+  line-height: 1;
 }
 h1 {
   margin: 0;
@@ -133,46 +113,12 @@ h1 {
 h2 {
   font-size: inherit;
 }
-ol.postlist {
-  list-style-type: none;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 1rem;
-  padding: 0;
-  font-size: 1rem;
-  line-height: 1.2;
-}
-ol.postlist > li {
-  width: 300px;
-  display: flex;
-  flex-direction: column;
-}
-ol.postlist h3 {
-  font-weight: bolder;
-  font-size: inherit;
-  margin: 0;
-}
-ol.postlist p:last-of-type {
-  flex-grow: 1;
-}
 .meta {
   font-size: 0.8rem;
   text-align: right;
 }
 .meta .sep {
   color: var(--highlight);
-}
-.tags a, .meta a {
-  text-decoration-thickness: 1px;
-}
-.tags a:hover, .meta a:hover {
-  text-decoration-thickness: 3px;
-}
-.tags {
-  font-size: 0.8rem;
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
 }
 img.illustration {
   float: left;
@@ -183,14 +129,6 @@ img, video {
 }
 .page {
   line-height: 1.3;
-}
-.page .meta {
-  margin-bottom: 4rem;
-}
-.links-nextprev {
-  clear: both;
-  display: flex;
-  gap: 1rem;
 }
 blockquote {
   clear: both;
