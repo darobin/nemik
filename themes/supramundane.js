@@ -1,4 +1,5 @@
 
+import { readFile } from 'node:fs/promises';
 import htmlHelpers from '../lib/html-helpers.js';
 import makeRel from '../lib/rel.js';
 
@@ -12,6 +13,7 @@ const files = [
   'Mulish-Italic-VariableFont_wght.ttf',
   'Mulish-VariableFont_wght.ttf',
   // 'asterism.svg',
+  'asterism.png',
   'supramundane.css',
 ];
 
@@ -24,7 +26,7 @@ export default async function ({ cover, author, date }, ctx, data) {
   const { el, linkStyle, detabbify, mainify, clean } = htmlHelpers(doc);
   await Promise.all(
     files.map(f => {
-      const to = `.nemik/${/svg/.test(f) ? 'img' : 'css'}/${f}`;
+      const to = `.nemik/${/svg|png/.test(f) ? 'img' : 'css'}/${f}`;
       return ctx.cpToRel(rel(`supramundane/${f}`), to);
     })
   );
@@ -32,13 +34,21 @@ export default async function ({ cover, author, date }, ctx, data) {
   detabbify();
   mainify();
   clean();
+
+  // Inject logo so it can be reused
+  // const asterism = await readFile(rel('supramundane/asterism.svg'));
+  // const div = el('div');
+  // div.innerHTML = asterism;
+  // doc.body.prepend(div.firstChild);
+
   // Apply theme options
+  const header = doc.querySelector('header');
   if (cover) {
     // doing it this way because I couldn't get variables to work right
     el('style', {}, [`@page :first { background-image: url(${cover}); }`], doc.head);
   }
   if (author || date) {
-    const meta = el('div', { class: 'meta' }, [], doc.querySelector('header'));
+    const meta = el('div', { class: 'meta' }, [], header);
     if (author) el('div', { class: 'author' }, [author], meta);
     if (date) {
       if (date === true) {
@@ -47,12 +57,18 @@ export default async function ({ cover, author, date }, ctx, data) {
       el('div', { class: 'date' }, [date], meta);
     }
   }
+  const imp = el('div', { class: 'imprimatur', style: "--color: #000; --zoom: 1" }, [], header);
+  // imp.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><use href="#quasi"></use></svg>
+  // <div>supramundane <em>agency</em>.</div>`;
+  imp.innerHTML = `<img src=".nemik/img/asterism.png" alt="abstract shape"><div>supramundane <em>agency</em>.</div>`;
+
+
   // XXX
   // - front page
   //  X use image if available (set as var)
-  //  - big title + subtitle
-  //  - author + date
-  //  - all other content pushed down
+  //  X author + date
+  //  X big title + subtitle
+  //  X all other content pushed down
   //  - skip blank page
   //  - bottom banner with logo
   // - inject quasi logo as SVG in there
