@@ -64,14 +64,12 @@ export default async function ({ cover, author, date }, ctx, data) {
 
 
   // XXX
-  // - front page
-  //  X use image if available (set as var)
-  //  X author + date
-  //  X big title + subtitle
-  //  X all other content pushed down
-  //  - skip blank page
-  //  - bottom banner with logo
-  // - inject quasi logo as SVG in there
+  // - abstract page: no heading
+  // - page number bottom right different font
+  // - h1 pages shouldn't have top repeat of the title
+  // - more space after h1
+  // - smaller body font and columns
+  // - closing page with big ass logo
   // - sections
   // - everything before section is the abstract
   // - toc

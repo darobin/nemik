@@ -182,7 +182,27 @@ blockquote {
 
 /* Print */
 @page {
-  /* ... */
+  @top-left {
+    content: counter(page);
+    height: 1cm;
+    text-align: center;
+    width: 1cm;
+  }
+  @top-center {
+    background: #000;
+    content: '';
+    display: block;
+    height: .05cm;
+    opacity: .5;
+    width: 100%;
+  }
+  @top-right {
+    content: string(heading);
+    font-size: 9pt;
+    height: 1cm;
+    vertical-align: middle;
+    width: 100%;
+  }
 }
 @page :first {
   /* background-image: var(--cover); */
@@ -192,11 +212,22 @@ blockquote {
   background-size: cover;
   margin: 0;
 }
+@page :blank {
+  @top-left { background: none; content: '' }
+  @top-center { content: none }
+  @top-right { content: none }
+}
+@page no-chapter {
+  @top-left { background: none; content: none }
+  @top-center { content: none }
+  @top-right { content: none }
+}
 @media print {
   header {
     height: 297mm;
     position: relative;
-    margin: 1cm 1cm 0 1cm
+    margin: 1cm 1cm 0 1cm;
+    page: no-chapter;
   }
   header p {
     background: #fff;
@@ -236,5 +267,9 @@ blockquote {
   }
   header .imprimatur div {
     font-size: 1.4rem;
+  }
+  h1 {
+    break-before: always;
+    string-set: heading content();
   }
 }
