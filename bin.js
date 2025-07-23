@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 import { cwd } from "node:process";
-import { isAbsolute, join } from "node:path";
 // import { createReadStream, createWriteStream } from "node:fs";
 import { readFile } from "node:fs/promises";
 import { program } from 'commander';
@@ -71,10 +70,6 @@ program
 ;
 
 program.parse();
-
-// function absolutise (path) {
-//   return isAbsolute(path) ? path : join(cwd(), path);
-// }
 
 // function die (str) {
 //   console.error(`Error: ${str}`);
