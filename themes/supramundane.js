@@ -8,8 +8,6 @@ const files = [
   'Catamaran-VariableFont_wght.ttf',
   'Cormorant-VariableFont_wght.ttf',
   'Cormorant-Italic-VariableFont_wght.ttf',
-  'JosefinSans-Italic-VariableFont_wght.ttf',
-  'JosefinSans-VariableFont_wght.ttf',
   'Mulish-Italic-VariableFont_wght.ttf',
   'Mulish-VariableFont_wght.ttf',
   // 'asterism.svg',
@@ -63,10 +61,6 @@ export default async function ({ cover, author, date }, ctx, data) {
 
 
   // XXX
-  // - abstract page: no heading
-  // - page number bottom right different font
-  // - h1 pages shouldn't have top repeat of the title
-  // - more space after h1
   // - smaller body font and columns
   // - closing page with big ass logo
   // - sections

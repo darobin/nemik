@@ -5,16 +5,6 @@
   font-style: normal;
 }
 @font-face {
-  font-family: "Josefin Sans";
-  src: url("JosefinSans-VariableFont_wght.ttf");
-  font-style: normal;
-}
-/* @font-face {
-  font-family: "Josefin Sans";
-  src: url("JosefinSans-Italic-VariableFont_wght.ttf");
-  font-style: italic;
-} */
-@font-face {
   font-family: "Mulish";
   src: url("Mulish-VariableFont_wght.ttf");
   font-style: normal;
@@ -39,7 +29,7 @@
 :root {
   --page-width: 21cm;
   --header-fam: "Catamaran";
-  --logo-fam: "Josefin Sans";
+  --logo-fam: "Cormorant";
   --body-fam: "Mulish";
   --line: 0;
   --mid-green: #4f9c5a;
@@ -79,7 +69,7 @@ html, body {
 }
 .imprimatur div {
   white-space: pre;
-  font-family: Cormorant;
+  font-family: var(--logo-fam);
   font-weight: 100;
   font-size: calc(2rem * var(--zoom, 1));
   letter-spacing: calc(0.3rem * var(--zoom, 1));
@@ -182,26 +172,31 @@ blockquote {
 
 /* Print */
 @page {
+  /* maybe move this to be with the text */
   @top-left {
-    content: counter(page);
-    height: 1cm;
-    text-align: center;
-    width: 1cm;
-  }
-  @top-center {
-    background: #000;
+    background-image: url(../img/asterism.png);
+    background-size: contain;
+    background-position: top;
+    background-repeat: no-repeat;
     content: '';
-    display: block;
-    height: .05cm;
-    opacity: .5;
-    width: 100%;
+    height: 1cm;
+    width: 0.5cm;
+    opacity: 0.4;
   }
   @top-right {
     content: string(heading);
     font-size: 9pt;
+    font-family: var(--logo-fam);
     height: 1cm;
-    vertical-align: middle;
+    vertical-align: top;
     width: 100%;
+  }
+  @bottom-right {
+    content: counter(page);
+    height: 1cm;
+    text-align: center;
+    width: 1cm;
+    font-family: var(--logo-fam);
   }
 }
 @page :first {
@@ -212,14 +207,13 @@ blockquote {
   background-size: cover;
   margin: 0;
 }
-@page :blank {
+@page :blank, @page nothing {
   @top-left { background: none; content: '' }
-  @top-center { content: none }
   @top-right { content: none }
+  @bottom-right { content: none }
 }
 @page no-chapter {
   @top-left { background: none; content: none }
-  @top-center { content: none }
   @top-right { content: none }
 }
 @media print {
@@ -227,7 +221,7 @@ blockquote {
     height: 297mm;
     position: relative;
     margin: 1cm 1cm 0 1cm;
-    page: no-chapter;
+    page: nothing;
   }
   header p {
     background: #fff;
@@ -271,6 +265,12 @@ blockquote {
   h1 {
     break-before: always;
     string-set: heading content();
+    page: no-chapter;
+    font-family: var(--logo-fam);
+    font-weight: 300;
+    font-size: 48pt;
+    margin-bottom: 5em;
+    line-height: 1;
   }
   #abstract {
     display: flex;
