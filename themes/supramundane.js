@@ -23,7 +23,7 @@ const files = [
 
 export default async function ({ cover, author, date }, ctx, data) {
   const doc = data.document;
-  const { el, linkStyle, detabbify, mainify, clean } = htmlHelpers(doc);
+  const { el, linkStyle, detabbify, mainify, abstractify, clean } = htmlHelpers(doc);
   await Promise.all(
     files.map(f => {
       const to = `.nemik/${/svg|png/.test(f) ? 'img' : 'css'}/${f}`;
@@ -33,6 +33,7 @@ export default async function ({ cover, author, date }, ctx, data) {
   linkStyle('.nemik/css/supramundane.css');
   detabbify();
   mainify();
+  abstractify();
   clean();
 
   // Inject logo so it can be reused
@@ -58,8 +59,6 @@ export default async function ({ cover, author, date }, ctx, data) {
     }
   }
   const imp = el('div', { class: 'imprimatur', style: "--color: #000; --zoom: 1" }, [], header);
-  // imp.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><use href="#quasi"></use></svg>
-  // <div>supramundane <em>agency</em>.</div>`;
   imp.innerHTML = `<img src=".nemik/img/asterism.png" alt="abstract shape"><div>supramundane <em>agency</em>.</div>`;
 
 

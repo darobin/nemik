@@ -125,7 +125,7 @@ hr::after {
   height: 50px;
   background: var(--highlight, #000);
   content: "";
-  mask: url(#quasi);
+  mask: url(../img/asterism.png);
   mask-position: center;
   mask-repeat: no-repeat;
 }
@@ -256,11 +256,11 @@ blockquote {
   header .imprimatur {
     background: #fff;
     position: absolute;
-    bottom: 0;
+    bottom: 2cm;
     left: -1cm;
     right: -1cm;
-    padding: 0.5cm 1cm 1cm 1cm;
-    min-height: 4cm;
+    padding: 0.5cm 1cm;
+    /* min-height: 4cm; */
   }
   header .imprimatur img {
     width: 1.4cm;
@@ -271,5 +271,19 @@ blockquote {
   h1 {
     break-before: always;
     string-set: heading content();
+  }
+  #abstract {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 297mm;
+    break-before: always;
+    break-after: always;
+    page: no-chapter;
+    font-style: italic;
+    font-size: 10pt;
+  }
+  #abstract p {
+    margin: 0 0 1em 0;
   }
 }
