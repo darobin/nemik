@@ -1,5 +1,4 @@
 
-import { readFile } from 'node:fs/promises';
 import htmlHelpers from '../lib/html-helpers.js';
 import makeRel from '../lib/rel.js';
 
@@ -21,7 +20,7 @@ const files = [
 
 export default async function ({ cover, author, date }, ctx, data) {
   const doc = data.document;
-  const { el, linkStyle, detabbify, mainify, abstractify, clean } = htmlHelpers(doc);
+  const { el, linkStyle, detabbify, mainify, abstractify, clean, sectionify } = htmlHelpers(doc);
   await Promise.all(
     files.map(f => {
       const to = `.nemik/${/svg|png/.test(f) ? 'img' : 'css'}/${f}`;
@@ -30,6 +29,7 @@ export default async function ({ cover, author, date }, ctx, data) {
   );
   linkStyle('.nemik/css/supramundane.css');
   detabbify();
+  sectionify();
   mainify();
   abstractify();
   clean();
@@ -61,9 +61,6 @@ export default async function ({ cover, author, date }, ctx, data) {
 
 
   // XXX
-  // - smaller body font and columns
   // - closing page with big ass logo
-  // - sections
-  // - everything before section is the abstract
   // - toc
 }
