@@ -90,7 +90,7 @@ header {
 main {
   font-size: 1.1rem;
   font-weight: 300;
-  line-height: 1.4;
+  line-height: 1.2;
 }
 a {
   color: inherit;
@@ -229,9 +229,13 @@ dt {
   header p {
     background: #fff;
     padding: 5mm;
+    text-align: left;
+    text-indent: 0;
   }
   header .subtitle {
     margin-top: 1rem;
+    text-align: left;
+    text-indent: 0;
   }
   header .meta {
     display: flex;
@@ -276,6 +280,13 @@ dt {
     line-height: 1;
     column-span: all;
   }
+  h2 {
+    font-family: var(--logo-fam);
+    font-weight: 300;
+    font-size: 18pt;
+    margin-bottom: 0;
+    line-height: 1.1;
+  }
   .special-section h1 {
     margin-bottom: 1em;
   }
@@ -291,11 +302,15 @@ dt {
     font-size: 10pt;
   }
   p {
-    margin: 0 0 1em 0;
+    margin: 0;
+    text-align: justify;
+  }
+  p:not(:first-of-type):not(.subtitle) {
+    text-indent: 2em;
   }
   main > section:not(.special-section) {
     columns: 2;
-    column-gap: 1cm;
+    column-gap: 0.8cm;
     font-size: 11pt;
   }
   a {
