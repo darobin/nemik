@@ -311,6 +311,7 @@ dt {
   main > section:not(.special-section) {
     columns: 2;
     column-gap: 0.8cm;
+    column-fill: auto;
     font-size: 11pt;
   }
   a {
