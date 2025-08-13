@@ -301,6 +301,9 @@ dt {
     font-style: italic;
     font-size: 10pt;
   }
+  section {
+    font-size: 11pt;
+  }
   p {
     margin: 0;
     text-align: justify;
@@ -308,14 +311,21 @@ dt {
   p:not(:first-of-type):not(.subtitle) {
     text-indent: 2em;
   }
+  /* NOTE: this only does two levels */
+  section > h1 ~ p:last-child::after,
+  section > h1 ~ section:last-child > p:last-child::after {
+    content: "∎";
+  }
   main > section:not(.special-section) {
     columns: 2;
     column-gap: 0.8cm;
     column-fill: auto;
-    font-size: 11pt;
   }
   a {
     text-decoration-thickness: 1px;
     text-decoration-color: #000;
+  }
+  ul {
+    padding-left: 16pt;
   }
 }
