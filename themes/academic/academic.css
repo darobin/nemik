@@ -1,0 +1,269 @@
+
+@font-face {
+  font-family: "Mulish";
+  src: url("Mulish-VariableFont_wght.ttf");
+  font-style: normal;
+}
+@font-face {
+  font-family: "Mulish";
+  src: url("Mulish-Italic-VariableFont_wght.ttf");
+  font-style: italic;
+}
+@font-face {
+  font-family: "Cormorant";
+  src: url("Cormorant-VariableFont_wght.ttf");
+  font-style: normal;
+}
+@font-face {
+  font-family: "Cormorant";
+  src: url("Cormorant-Italic-VariableFont_wght.ttf");
+  font-style: italic;
+}
+
+:root {
+  --page-width: 21cm;
+  --header-fam: "Cormorant";
+  --logo-fam: "Cormorant";
+  --body-fam: "Mulish";
+  --line: 0;
+  --mid-green: #4f9c5a;
+  --bad-pink: #ae5395;
+  --desat-pink: #efa1a6;
+  --grey-teal: #729397;
+  --yelly: #f4b32c;
+  --too-red: #dc1b27;
+}
+
+* {
+  box-sizing: border-box;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  font-family: var(--body-fam);
+}
+
+header, nav, main, footer {
+  max-width: var(--page-width);
+  margin: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+header {
+  padding-top: 12rem;
+  padding-bottom: 2rem;
+}
+main {
+  font-size: 1.1rem;
+  font-weight: 300;
+  line-height: 1.2;
+}
+a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  text-decoration-color: var(--highlight);
+  transition: text-decoration-thickness .2s;
+}
+a:hover {
+  text-decoration-thickness: 5px;
+}
+strong {
+  font-weight: bold;
+}
+.title, .subtitle, h1, h2, h3, h4, h5, h6 {
+  font-family: var(--header-fam);
+}
+.title {
+  font-size: 4rem;
+  font-weight: 700;
+  margin: 0;
+  padding: 0;
+  line-height: 1.2;
+}
+.subtitle {
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: #222;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+}
+:is(h1, h2, h3, h4, h5, h6) + p {
+  margin-top: 0;
+}
+h1 {
+  margin: 2rem 0 0 0;
+  line-height: 1.2;
+}
+h2 {
+  font-size: inherit;
+}
+/*.meta {
+  font-size: 0.8rem;
+  padding: 0;
+  color: red;
+}*/
+.author {
+  text-align: left;
+}
+
+img.illustration {
+  float: left;
+  margin: 0 1rem 10px 0;
+}
+img, video {
+  max-width: 100%;
+}
+.page {
+  line-height: 1.3;
+}
+blockquote {
+  clear: both;
+  border-left: 0.5rem solid var(--highlight);
+  margin-left: 0;
+  padding-left: 1rem;
+  font-style: italic;
+}
+dt {
+  font-weight: bold;
+}
+
+/* Print */
+@page {
+  /* maybe move this to be with the text */
+  @top-left {
+    background-image: url(../img/asterism.png);
+    background-size: contain;
+    background-position: top;
+    background-repeat: no-repeat;
+    content: '';
+    height: 1cm;
+    width: 0.5cm;
+    opacity: 0.4;
+  }
+  @top-right {
+    content: string(heading);
+    font-size: 9pt;
+    font-family: var(--logo-fam);
+    height: 1cm;
+    vertical-align: top;
+    width: 100%;
+  }
+  @bottom-right {
+    content: counter(page);
+    height: 1cm;
+    text-align: center;
+    width: 1cm;
+    font-family: var(--logo-fam);
+  }
+}
+@page :first {
+  /* background-image: var(--cover); */
+  /* background-image: url(../../ernst-haeckel.png); */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  margin: 0;
+}
+@page :blank, @page nothing {
+  @top-left { background: none; content: '' }
+  @top-right { content: none }
+  @bottom-right { content: none }
+}
+@page no-chapter {
+  @top-left { background: none; content: none }
+  @top-right { content: none }
+}
+@media print {
+  header {
+    height: 297mm;
+    position: relative;
+    margin: 1cm 1cm 0 1cm;
+    page: nothing;
+  }
+  header p {
+    background: #fff;
+    padding: 5mm;
+    text-align: left;
+    text-indent: 0;
+  }
+  header .subtitle {
+    /*margin-top: 1rem;*/
+    text-align: left;
+    text-indent: 0;
+  }
+  header .meta {
+    display: flex;
+    flex-direction: column;
+    /*align-items: end;*/
+    margin-top: 2rem;
+  }
+  header .meta div {
+    font-family: var(--header-fam);
+    /*margin-top: 1rem;*/
+    background: #fff;
+    padding: 0;
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: #222;
+    line-height: 1;
+    width: fit-content;
+  }
+  h1 {
+    break-before: always;
+    string-set: heading content();
+    page: no-chapter;
+    font-family: var(--logo-fam);
+    font-weight: 300;
+    font-size: 48pt;
+    margin-bottom: 2em;
+    line-height: 1;
+    /*column-span: all;*/
+  }
+  h2 {
+    /*font-family: var(--logo-fam);*/
+    font-family: var(--body-fam);
+    font-weight: 700;
+    font-size: 14pt;
+    margin: 1.6rem 0 0.4rem 0;
+    line-height: 1.1;
+  }
+  .special-section h1 {
+    margin-bottom: 1em;
+  }
+  #abstract {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 297mm;
+    break-before: always;
+    break-after: always;
+    page: no-chapter;
+    font-style: italic;
+    font-size: 10pt;
+  }
+  section {
+    font-size: 11pt;
+  }
+  p {
+    margin: 0;
+    text-align: justify;
+  }
+  p:not(:first-of-type):not(.subtitle) {
+    text-indent: 2em;
+  }
+  /*main > section:not(.special-section) {
+    columns: 2;
+    column-gap: 0.8cm;
+    column-fill: auto;
+  }*/
+  a {
+    text-decoration-thickness: 1px;
+    text-decoration-color: #000;
+  }
+  ul {
+    padding-left: 16pt;
+  }
+}
