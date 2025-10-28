@@ -18,9 +18,9 @@ const files = [
 // date: true,
 // author: 'Robin Berjon',
 
-export default async function ({ cover, author, date, appendices }, ctx, data) {
+export default async function ({ cover, author, date, appendices, noAbstract }, ctx, data) {
   const doc = data.document;
-  const { el, linkStyle, detabbify, mainify, abstractify, clean, sectionify, appendixify } = htmlHelpers(doc);
+  const { el, linkStyle, detabbify, mainify, abstractify, clean, sectionify, appendixify, footnotify } = htmlHelpers(doc);
   await Promise.all(
     files.map(f => {
       const to = `.nemik/${/svg|png/.test(f) ? 'img' : 'css'}/${f}`;
@@ -32,6 +32,8 @@ export default async function ({ cover, author, date, appendices }, ctx, data) {
   sectionify();
   mainify();
   abstractify();
+  if (noAbstract) doc.body.classList.add('no-abstract');
+  footnotify();
   if (appendices?.length) appendixify(appendices);
   clean();
 
@@ -46,6 +48,9 @@ export default async function ({ cover, author, date, appendices }, ctx, data) {
   if (cover) {
     // doing it this way because I couldn't get variables to work right
     el('style', {}, [`@page :first { background-image: url(${cover}); }`], doc.head);
+  }
+  else {
+    doc.body.classList.add('no-cover');
   }
   if (author || date) {
     const meta = el('div', { class: 'meta' }, [], header);

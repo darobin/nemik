@@ -1,0 +1,156 @@
+
+@font-face {
+  font-family: "Josefin Sans";
+  src: url("JosefinSans-VariableFont_wght.ttf");
+  font-style: normal;
+}
+@font-face {
+  font-family: "Josefin Sans";
+  src: url("JosefinSans-Italic-VariableFont_wght.ttf");
+  font-style: italic;
+}
+@font-face {
+  font-family: "Mulish";
+  src: url("Mulish-VariableFont_wght.ttf");
+  font-style: normal;
+}
+@font-face {
+  font-family: "Mulish";
+  src: url("Mulish-Italic-VariableFont_wght.ttf");
+  font-style: italic;
+}
+
+:root {
+  --page-width: 21cm;
+  --brand-fam: 'Josefin Sans';
+  --header-fam: Mulish;
+  --body-fam: Mulish;
+  --highlight: #1A9BCC;
+  --night-skies: linear-gradient(to bottom, #1B2847, #126CB4);
+  --bright: #FAFF3B;
+}
+
+* {
+  box-sizing: border-box;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  font-family: var(--body-fam);
+}
+
+@page {
+  size: A4;
+  margin: 2cm;
+  @bottom-left {
+    height: 2cm;
+    width: 21cm;
+    background: url(../img/logo.png) no-repeat top 0.6cm left / 0.7cm 0.7cm;
+    content: 'eurosky';
+    color: var(--highlight);
+    font-family: var(--brand-fam);
+    font-size: 24pt;
+    font-weight: 100;
+    padding-left: 0.7cm;
+  }
+  @bottom-right {
+    content: counter(page);
+    height: 2cm;
+    text-align: center;
+    width: 1cm;
+    padding-top: 0;
+    font-family: var(--brand-fam);
+  }
+}
+
+@page :first {
+  @top-left {
+    height: 2cm;
+    width: 21cm;
+    margin-left: -2cm;
+    background:
+      url(../img/logo.png) no-repeat top 0.7cm left 0.5cm,
+      var(--night-skies)
+    ;
+    content: 'eurosky';
+    color: #fff;
+    font-family: var(--brand-fam);
+    font-size: 36pt;
+    font-weight: 100;
+    padding-left: 2cm;
+    padding-top: 0.5cm;
+  }
+  @bottom-left {
+    content: '';
+    height: 0;
+  }
+}
+
+strong {
+  font-weight: bold;
+}
+header {
+  margin-top: 1cm;
+}
+header p.title, header p.subtitle {
+  font-family: var(--brand-fam);
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--header-fam);
+}
+header p.title {
+  font-size: 42pt;
+  font-weight: 200;
+  margin: 0 0 0 -0.1cm;
+  line-height: 1;
+}
+header p.subtitle {
+  font-size: 1.6rem;
+  font-weight: 300;
+  color: #222;
+  margin: 0;
+  line-height: 1;
+}
+:is(h1, h2, h3, h4, h5, h6) + p {
+  margin-top: 0;
+}
+h1 {
+  margin: 4rem 0 0 0;
+  line-height: 1.2;
+  font-family: Josefin Sans;
+  /*text-transform: lowercase;*/
+  font-size: 4rem;
+  font-weight: 200;
+}
+h2 {
+  font-size: inherit;
+  margin: 0;
+}
+h3 {
+  font-family: var(--brand-fam);
+  margin-bottom: 0;
+  font-weight: 400;
+}
+main {
+  font-size: 11pt;
+  columns: 2;
+  column-gap: 0.8cm;
+  column-fill: auto;
+}
+main p {
+  margin-top: 0;
+  text-align: justify;
+  hyphens: auto;
+}
+
+/*img, video {
+  max-width: 100%;
+}
+blockquote {
+  clear: both;
+  border-left: 0.5rem solid var(--highlight);
+  margin-left: 0;
+  padding-left: 1rem;
+  font-style: italic;
+}*/

@@ -254,6 +254,10 @@ dt {
     line-height: 1;
     width: fit-content;
   }
+  .no-cover header .meta div {
+    margin-top: 0;
+    padding: 0 5mm;
+  }
   header .imprimatur {
     background: #fff;
     position: absolute;
@@ -287,6 +291,9 @@ dt {
     margin-bottom: 0;
     line-height: 1.1;
   }
+  section:first-of-type h2 {
+    margin-top: 0;
+  }
   .special-section h1 {
     margin-bottom: 1em;
   }
@@ -301,12 +308,20 @@ dt {
     font-style: italic;
     font-size: 10pt;
   }
+  #abstract:empty {
+    display: none;
+  }
+  .no-abstract #abstract {
+    justify-content: initial;
+    font-style: normal;
+  }
   section {
     font-size: 11pt;
   }
-  p {
+  p, li, dd {
     margin: 0;
     text-align: justify;
+    hyphens: auto;
   }
   p:not(:first-of-type):not(.subtitle) {
     text-indent: 2em;
@@ -324,6 +339,12 @@ dt {
   a {
     text-decoration-thickness: 1px;
     text-decoration-color: #000;
+  }
+  a[role="doc-noteref"] {
+    text-decoration: none;
+  }
+  sup {
+    font-size: 9pt;
   }
   ul {
     padding-left: 16pt;
