@@ -136,3 +136,4 @@ dist
 .pnp.*
 examples/basic/book2.*
 examples/basic/.nemik
+scratch/
