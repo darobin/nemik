@@ -104,7 +104,7 @@ hr::after {
   mask-position: center;
   mask-repeat: no-repeat;
 }
-.title, .subtitle, h1, h2, h3, h4, h5, h6 {
+.title, .subtitle {
   font-family: var(--header-fam);
 }
 .title {

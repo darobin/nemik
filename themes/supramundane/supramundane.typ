@@ -1,51 +1,123 @@
 
 #let article(
+  cover: "",
+  title: "",
+  subtitle: "",
+  author: "",
+  date: "",
   doc,
 ) = {
   set page(paper: "a4")
   set text(
-    font: "Mulish"
+    font: "Mulish",
+    size: 11pt,
   )
-  show heading: set text(font: "Catamaran")
+  set par(
+    justify: true,
+  )
+  show heading: set text(font: "Cormorant")
+  // show heading: set text(font: "Catamaran")
+
+  // DO the cover page here
+  page(
+    margin: 0pt,
+    numbering: none,
+    background: image(cover, width: 100%, height: 100%),
+    [
+      // title
+      #place(
+        top + left,
+        dx: 1cm, dy: 5cm,
+        [
+          #block(
+            fill: rgb("#fff"),
+            inset: (x: 5mm, y: 1cm),
+            width: 19cm,
+            text(
+              font: "Catamaran",
+              size: 4em,
+              weight: 700,
+              title,
+            )
+          )
+          // subtitle
+          #block(
+            above: 1em,
+            fill: rgb("#fff"),
+            inset: 5mm,
+            width: 19cm,
+            text(
+              font: "Catamaran",
+              size: 1.6em,
+              weight: 400,
+              fill: rgb("#222"),
+              subtitle,
+            )
+          )
+          #place(
+            right,
+            dx: -1cm, dy: 2cm,
+            [
+              // author
+              #block(
+                fill: rgb("#fff"),
+                inset: 5mm,
+                text(
+                  font: "Catamaran",
+                  size: 1.6em,
+                  weight: 400,
+                  fill: rgb("#222"),
+                  author,
+                )
+              )
+              // date
+              #block(
+                fill: rgb("#fff"),
+                inset: 5mm,
+                text(
+                  font: "Catamaran",
+                  size: 1.6em,
+                  weight: 400,
+                  fill: rgb("#222"),
+                  date,
+                )
+              )
+            ]
+          )
+        ]
+      )
+      #place(
+        bottom + left,
+        dx: 0cm, dy: -1cm,
+        block(
+          fill: rgb("#fff"),
+          inset: (top: 5mm, bottom: 0mm),
+          width: 21cm,
+          [
+            #align(
+              center,
+              [
+                #image("./img/asterism.png", width: 4em, height: 4em)
+                #text(
+                  font: "Cormorant",
+                  size: 1.6em,
+                  weight: 100,
+                  baseline: -5mm,
+                  [supramundane _agency_.],
+                )
+              ]
+            )
+          ]
+        )
+      )
+    ]
+  )
 
   doc
 }
 
 
-
 /*
-
-:root {
-  --header-fam: "Catamaran";
-  --logo-fam: "Cormorant";
-  --body-fam: "Mulish";
-}
-
-html, body {
-  margin: 0;
-  padding: 0;
-  font-size: 16px;
-  font-family: var(--body-fam);
-}
-
-/* Use this for page with big ass sm logo */
-.imprimatur {
-  text-align: center;
-  display: inline-block;
-}
-.imprimatur svg, .imprimatur img {
-  width: calc(5rem * var(--zoom, 1));
-  stroke: var(--color, #000);
-}
-.imprimatur div {
-  white-space: pre;
-  font-family: var(--logo-fam);
-  font-weight: 100;
-  font-size: calc(2rem * var(--zoom, 1));
-  letter-spacing: calc(0.3rem * var(--zoom, 1));
-  color: var(--color, #000);
-  line-height: 1;
-}
 
 header, nav, main, footer {
   max-width: var(--page-width);
@@ -285,14 +357,6 @@ dt {
     justify-content: initial;
     font-style: normal;
   }
-  section {
-    font-size: 11pt;
-  }
-  p, li, dd {
-    margin: 0;
-    text-align: justify;
-    hyphens: auto;
-  }
   p:not(:first-of-type):not(.subtitle) {
     text-indent: 2em;
   }
@@ -312,9 +376,6 @@ dt {
   }
   a[role="doc-noteref"] {
     text-decoration: none;
-  }
-  sup {
-    font-size: 9pt;
   }
   ul {
     padding-left: 16pt;
