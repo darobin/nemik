@@ -5,8 +5,15 @@
   subtitle: "",
   author: "",
   date: "",
+  dt: none,
+  abstract: [],
   doc,
 ) = {
+  set document(
+    title: title,
+    author: author,
+    date: dt,
+  )
   set page(paper: "a4")
   set text(
     font: "Mulish",
@@ -16,9 +23,7 @@
     justify: true,
   )
   show heading: set text(font: "Cormorant")
-  // show heading: set text(font: "Catamaran")
 
-  // DO the cover page here
   page(
     margin: 0pt,
     numbering: none,
@@ -112,9 +117,20 @@
       )
     ]
   )
+  page(
+    numbering: none,
+    [
+      #set text(
+        style: "italic",
+        size: 10pt
+      )
+      #abstract
+    ]
+  )
 
   doc
 }
+
 
 
 /*
