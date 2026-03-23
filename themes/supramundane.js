@@ -12,6 +12,7 @@ const files = [
   // 'asterism.svg',
   'asterism.png',
   'supramundane.css',
+  'supramundane.typ',
 ];
 
 // cover: 'ernst-haeckel.png',
@@ -23,7 +24,10 @@ export default async function ({ cover, author, date, appendices, noAbstract }, 
   const { el, linkStyle, detabbify, mainify, abstractify, clean, sectionify, appendixify, footnotify } = htmlHelpers(doc);
   await Promise.all(
     files.map(f => {
-      const to = `.nemik/${/svg|png/.test(f) ? 'img' : 'css'}/${f}`;
+      let subtree = 'css/';
+      if (/svg|png/.test(f)) subtree = 'img/';
+      else if (/\.typ/.test(f)) subtree = '';
+      const to = `.nemik/${subtree}/${f}`;
       return ctx.cpToRel(rel(`supramundane/${f}`), to);
     })
   );

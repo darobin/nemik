@@ -1,41 +1,26 @@
 
-@font-face {
-  font-family: "Catamaran";
-  src: url("Catamaran-VariableFont_wght.ttf");
-  font-style: normal;
-}
-@font-face {
-  font-family: "Mulish";
-  src: url("Mulish-VariableFont_wght.ttf");
-  font-style: normal;
-}
-@font-face {
-  font-family: "Mulish";
-  src: url("Mulish-Italic-VariableFont_wght.ttf");
-  font-style: italic;
-}
-@font-face {
-  font-family: "Cormorant";
-  src: url("Cormorant-VariableFont_wght.ttf");
-  font-style: normal;
-}
-@font-face {
-  font-family: "Cormorant";
-  src: url("Cormorant-Italic-VariableFont_wght.ttf");
-  font-style: italic;
+#let article(
+  doc,
+) = {
+  set page(paper: "a4")
+  set text(
+    font: "Mulish"
+  )
+  show heading: set text(font: "Catamaran")
+
+  doc
 }
 
+
+
+/*
 
 :root {
-  --page-width: 21cm;
   --header-fam: "Catamaran";
   --logo-fam: "Cormorant";
   --body-fam: "Mulish";
 }
 
-* {
-  box-sizing: border-box;
-}
 html, body {
   margin: 0;
   padding: 0;
@@ -335,3 +320,4 @@ dt {
     padding-left: 16pt;
   }
 }
+*/
