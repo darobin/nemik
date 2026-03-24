@@ -23,6 +23,7 @@
   set par(
     justify: true,
   )
+  // set heading(numbering: "1.")
   show heading: set text(font: "Cormorant")
   show heading.where(level: 1): set text(
     weight: 300,
@@ -35,10 +36,8 @@
     weight: 600,
     size: 22pt,
   )
-  // show heading.where(level: 2): set block(
-  //   below: 0pt,
-  // )
 
+  // COVER
   page(
     margin: 0pt,
     numbering: none,
@@ -132,6 +131,8 @@
       )
     ]
   )
+
+  // ABSTRACT
   page(
     numbering: none,
     [
@@ -141,6 +142,13 @@
       )
       #abstract
     ]
+  )
+  // TOC
+  show outline.entry.where(level: 1): set text(weight: 700)
+  show outline.entry.where(level: 3): set text(style: "italic")
+  page(
+    numbering: none,
+    outline(title: "Table of Contents", indent: 1.2em)
   )
 
   doc
