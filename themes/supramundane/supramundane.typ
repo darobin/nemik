@@ -1,4 +1,6 @@
 
+#import "@preview/hydra:0.6.2": hydra
+
 #let article(
   cover: "",
   title: "",
@@ -16,23 +18,30 @@
   )
   set page(
     paper: "a4",
-    numbering: "1",
+    // numbering: "1",
     // XXX
     //  - no header if heading(level: 1) on page
     //  - header with bold FTW in TL and italic current chapter TR
-    //  - no footer at or before toc
-    footer: [
-      hi
-      #h(1fr)
-      #context counter(page).display("1", both: true)
-    ]
-    //   image("./img/asterism.png", width: 1em, height: 1em) +
-    //   h(1fr) +
-    //   counter(page).display(
-    //     "1",
-    //     both: true,
-    //   )
-    // },
+    header: context {
+      // this is getting the *second* h1 (because ToC generates one)
+      let start-page = query(heading.where(level: 1)).at(1).location().page()
+      let this-page = here().page()
+      if this-page >= start-page [
+        *#title*
+        #h(1fr)
+        _#hydra(1)_
+      ]
+    },
+    footer: context {
+      // this is getting the *second* h1 (because ToC generates one)
+      let start-page = query(heading.where(level: 1)).at(1).location().page()
+      let this-page = here().page()
+      if this-page >= start-page [
+        #box(baseline: 40%, image("./img/asterism.png", width: 1.6em, height: 1.6em))
+        #h(1fr)
+        #counter(page).display("1")
+      ]
+    },
   )
   set text(
     font: "Mulish",
@@ -51,6 +60,7 @@
   show heading.where(level: 1): set block(
     below: 5em,
   )
+  show heading.where(level: 1): it => pagebreak(weak: true) + it
   show heading.where(level: 2): set text(
     weight: 600,
     size: 22pt,
