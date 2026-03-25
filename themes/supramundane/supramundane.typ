@@ -18,23 +18,24 @@
   )
   set page(
     paper: "a4",
-    // numbering: "1",
-    // XXX
-    //  - no header if heading(level: 1) on page
-    //  - header with bold FTW in TL and italic current chapter TR
     header: context {
+      let matches = query(heading.where(level: 1))
+      let current = counter(page).get()
+      let has-h1 = matches.any(m =>
+        counter(page).at(m.location()) == current
+      )
       // this is getting the *second* h1 (because ToC generates one)
       let start-page = query(heading.where(level: 1)).at(1).location().page()
       let this-page = here().page()
-      if this-page >= start-page [
-        *#title*
+      if this-page >= start-page and not has-h1 [
         #h(1fr)
-        _#hydra(1)_
+        *#box(title)*: _#hydra(1)_
       ]
     },
     footer: context {
       // this is getting the *second* h1 (because ToC generates one)
-      let start-page = query(heading.where(level: 1)).at(1).location().page()
+      // let start-page = query(heading.where(level: 1)).at(1).location().page()
+      let start-page = query(heading.where(level: 1)).first().location().page()
       let this-page = here().page()
       if this-page >= start-page [
         #box(baseline: 40%, image("./img/asterism.png", width: 1.6em, height: 1.6em))
@@ -173,6 +174,7 @@
     ]
   )
   // TOC
+  show outline: set heading(level: 2)
   show outline.entry.where(level: 1): set text(weight: 700)
   show outline.entry.where(level: 3): set text(style: "italic")
   page(
@@ -183,113 +185,3 @@
   counter(page).update(1)
   doc
 }
-
-
-
-/*
-
-a {
-  color: inherit;
-  text-decoration: underline;
-  text-decoration-thickness: 3px;
-  text-decoration-color: var(--highlight);
-  transition: text-decoration-thickness .2s;
-}
-hr::after {
-  display: block;
-  text-align: center;
-  width: 100%;
-  height: 50px;
-  background: var(--highlight, #000);
-  content: "";
-  mask: url(../img/asterism.png);
-  mask-position: center;
-  mask-repeat: no-repeat;
-}
-dt {
-  font-weight: bold;
-}
-
-/* Print */
-@page {
-  /* maybe move this to be with the text */
-  @top-left {
-    background-image: url(../img/asterism.png);
-    background-size: contain;
-    background-position: top;
-    background-repeat: no-repeat;
-    content: '';
-    height: 1cm;
-    width: 0.5cm;
-    opacity: 0.4;
-  }
-  @top-right {
-    content: string(heading);
-    font-size: 9pt;
-    font-family: var(--logo-fam);
-    height: 1cm;
-    vertical-align: top;
-    width: 100%;
-  }
-  @bottom-right {
-    content: counter(page);
-    height: 1cm;
-    text-align: center;
-    width: 1cm;
-    font-family: var(--logo-fam);
-  }
-}
-@page :first {
-  /* background-image: var(--cover); */
-  /* background-image: url(../../ernst-haeckel.png); */
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  margin: 0;
-}
-@page :blank, @page nothing {
-  @top-left { background: none; content: '' }
-  @top-right { content: none }
-  @bottom-right { content: none }
-}
-@page no-chapter {
-  @top-left { background: none; content: none }
-  @top-right { content: none }
-}
-@media print {
-  h1 {
-    string-set: heading content();
-    page: no-chapter;
-  }
-  h2 {
-    font-family: var(--logo-fam);
-    font-weight: 300;
-    font-size: 18pt;
-    margin-bottom: 0;
-    line-height: 1.1;
-  }
-  section:first-of-type h2 {
-    margin-top: 0;
-  }
-  /* NOTE: this only does two levels */
-  section > h1 ~ p:last-child::after,
-  section > h1 ~ section:last-child > p:last-child::after {
-    content: "∎";
-  }
-  main > section:not(.special-section) {
-    columns: 2;
-    column-gap: 0.8cm;
-    column-fill: auto;
-  }
-  a {
-    text-decoration-thickness: 1px;
-    text-decoration-color: #000;
-  }
-  a[role="doc-noteref"] {
-    text-decoration: none;
-  }
-  ul {
-    padding-left: 16pt;
-  }
-}
-*/
