@@ -14,7 +14,26 @@
     author: author,
     date: dt,
   )
-  set page(paper: "a4")
+  set page(
+    paper: "a4",
+    numbering: "1",
+    // XXX
+    //  - no header if heading(level: 1) on page
+    //  - header with bold FTW in TL and italic current chapter TR
+    //  - no footer at or before toc
+    footer: [
+      hi
+      #h(1fr)
+      #context counter(page).display("1", both: true)
+    ]
+    //   image("./img/asterism.png", width: 1em, height: 1em) +
+    //   h(1fr) +
+    //   counter(page).display(
+    //     "1",
+    //     both: true,
+    //   )
+    // },
+  )
   set text(
     font: "Mulish",
     size: 11pt,
@@ -151,6 +170,7 @@
     outline(title: "Table of Contents", indent: 1.2em)
   )
 
+  counter(page).update(1)
   doc
 }
 
