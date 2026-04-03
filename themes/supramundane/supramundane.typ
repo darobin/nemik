@@ -33,7 +33,7 @@
       ]
     },
     footer: context {
-      // this is getting the *second* h1 (because ToC generates one)
+      // this was getting the *second* h1 (because ToC generates one)
       // let start-page = query(heading.where(level: 1)).at(1).location().page()
       let start-page = query(heading.where(level: 1)).first().location().page()
       let this-page = here().page()
@@ -61,6 +61,17 @@
   show heading.where(level: 1): set block(
     below: 5em,
   )
+  show heading.where(level: 1, body: [Executive Summary]): set block(below: 1em)
+  show heading.where(level: 1, body: [Acknowledgements]): set block(below: 1em)
+  show heading.where(level: 1, body: [References]): set block(below: 1em)
+  // show: doc => context {
+  //   let special-headings = query(heading.where(level: 1))
+  //     .map(elt => elt.at("body", default: none))
+  //     .filter(bod => bod != none and str(bod).match(regex("Executive Summary")) != none)
+  //   // use a placeholder to make sure the list is never empty
+  //   show selector.or(<supramundane-placeholder>, ..special-headings): set block(below: 1em)
+  //   doc
+  // }
   show heading.where(level: 1): it => pagebreak(weak: true) + it
   show heading.where(level: 2): set text(
     weight: 600,
