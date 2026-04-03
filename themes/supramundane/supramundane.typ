@@ -52,6 +52,10 @@
   set par(
     justify: true,
   )
+  set list(indent: 1em)
+  set enum(indent: 1em)
+  show list: it => block(spacing: 1em, it)
+  show enum: it => block(spacing: 1em, it)
   // set heading(numbering: "1.")
   show heading: set text(font: "Cormorant")
   show heading.where(level: 1): set text(
@@ -176,13 +180,13 @@
   // ABSTRACT
   page(
     numbering: none,
-    [
-      #set text(
+    {
+      set text(
         style: "italic",
         size: 10pt
       )
-      #abstract
-    ]
+      abstract
+    }
   )
   // TOC
   show outline: set heading(level: 2)
