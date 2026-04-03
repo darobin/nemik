@@ -56,7 +56,7 @@
   set enum(indent: 1em)
   show list: it => block(spacing: 1em, it)
   show enum: it => block(spacing: 1em, it)
-  show figure: it => block(spacing: 1em, it)
+  show figure: set block(spacing: 2em)
   // set heading(numbering: "1.")
   show heading: set text(font: "Cormorant")
   show heading.where(level: 1): set text(
