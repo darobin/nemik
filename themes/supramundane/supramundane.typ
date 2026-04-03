@@ -56,6 +56,7 @@
   set enum(indent: 1em)
   show list: it => block(spacing: 1em, it)
   show enum: it => block(spacing: 1em, it)
+  show figure: it => block(spacing: 1em, it)
   // set heading(numbering: "1.")
   show heading: set text(font: "Cormorant")
   show heading.where(level: 1): set text(
@@ -81,6 +82,9 @@
     weight: 600,
     size: 22pt,
   )
+  show "⁂": it => box(inset: (y: 2em), text(weight: 900, size: 22pt, "⁂"))
+  // show "⁂": set text(weight: 900, size: 22pt)
+  show link.where(body: regex("^http")): it => box(it)
 
   // COVER
   page(
