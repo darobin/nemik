@@ -5,7 +5,7 @@ import { cwd } from "node:process";
 import { readFile } from "node:fs/promises";
 import { program } from 'commander';
 import { setupAndRun } from "./lib/engine.js";
-import { addCredentials, getCredentials, generateGoogleToken } from "./lib/credentials.js";
+import { addCredentials, generateGoogleToken, regenerateGoogleToken } from "./lib/credentials.js";
 import makeRel from './lib/rel.js';
 
 const rel = makeRel(import.meta.url);
@@ -39,16 +39,10 @@ credentials
 ;
 credentials
   .command('refresh-gdoc')
+  .description('force a new Google authorisation (normally happens on its own when needed)')
   .argument('<service>', 'the key for which these credentials are for')
   .action(async (service) => {
-    const [clientId, clientSecret] = await Promise.all([
-      getCredentials(service, 'client-id'),
-      getCredentials(service, 'client-secret'),
-    ]);
-    if (!clientId || !clientId.length || !clientSecret || !clientSecret.length) {
-      throw new Error(`No credentials found for ${service}`);
-    }
-    await generateGoogleToken(service, clientId[0].password, clientSecret[0].password);
+    await regenerateGoogleToken(service);
   })
 ;
 
