@@ -2,7 +2,7 @@
 #import "@preview/hydra:0.6.2": hydra
 
 #let article(
-  cover: "",
+  cover: none,
   title: "",
   subtitle: "",
   author: "",
@@ -90,7 +90,7 @@
   page(
     margin: 0pt,
     numbering: none,
-    background: image(cover, width: 100%, height: 100%),
+    background: if cover != none and cover != "" { image(cover, width: 100%, height: 100%) },
     [
       // title
       #place(
