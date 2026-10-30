@@ -1,12 +1,13 @@
 #!/usr/bin/env node
 
-import { cwd } from "node:process";
+import { cwd, env, exit } from "node:process";
 // import { createReadStream, createWriteStream } from "node:fs";
 import { readFile } from "node:fs/promises";
 import { program } from 'commander';
 import { setupAndRun } from "./lib/engine.js";
 import { addCredentials, generateGoogleToken, regenerateGoogleToken } from "./lib/credentials.js";
 import makeRel from './lib/rel.js';
+import chalk from 'chalk';
 
 const rel = makeRel(import.meta.url);
 const { version } = JSON.parse(await readFile(rel('./package.json')));
@@ -63,7 +64,14 @@ program
   })
 ;
 
-program.parse();
+// Errors are shown as messages; set NEMIK_DEBUG for the full stack.
+try {
+  await program.parseAsync();
+}
+catch (err) {
+  console.error(chalk.bold.red('[ERROR]'), env.NEMIK_DEBUG ? err : err.message);
+  exit(1);
+}
 
 // function die (str) {
 //   console.error(`Error: ${str}`);
