@@ -1,6 +1,7 @@
 
 import htmlHelpers from '../lib/html-helpers.js';
 import makeRel from '../lib/rel.js';
+import { copyThemeFiles, addMeta } from '../lib/theme-files.js';
 
 const rel = makeRel(import.meta.url);
 const files = [
@@ -10,24 +11,24 @@ const files = [
   'Mulish-VariableFont_wght.ttf',
   'logo.png',
   'supra-simple.css',
+  'supramundane-simple.typ',
 ];
 
-export default async function (opts, ctx, data) {
+export default async function ({ author, date } = {}, ctx, data) {
   const doc = data.document;
-  const { linkStyle, detabbify, mainify, clean } = htmlHelpers(doc);
-  await Promise.all(
-    files.map(f => {
-      const to = `.nemik/${/svg|png/.test(f) ? 'img' : 'css'}/${f}`;
-      return ctx.cpToRel(rel(`supramundane-simple/${f}`), to);
-    })
-  );
+  const { el, linkStyle, detabbify, mainify, clean } = htmlHelpers(doc);
+  await copyThemeFiles(ctx, rel, 'supramundane-simple', files);
   linkStyle('.nemik/css/supra-simple.css');
   detabbify();
   // sectionify();
   mainify();
-  // abstractify();
   clean();
+  addMeta(doc, { author, date });
 
+  // The first paragraph is the abstract: it goes under the title, across the columns.
   const abstract = doc.querySelector('main > p:first-of-type');
-  doc.querySelector('header').after(abstract);
+  if (abstract) {
+    const section = el('section', { id: 'abstract', class: 'special-section' }, [abstract]);
+    doc.querySelector('header').after(section);
+  }
 }

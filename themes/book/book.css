@@ -1,12 +1,12 @@
 
 @font-face {
   font-family: "Monticello";
-  src: url("Monticello-Roman.ttf");
+  src: url("../fonts/Monticello-Roman.ttf");
   font-style: normal;
 }
 @font-face {
   font-family: "Monticello";
-  src: url("Monticello-Italic.ttf");
+  src: url("../fonts/Monticello-Italic.ttf");
   font-style: italic;
 }
 

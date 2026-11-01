@@ -1,6 +1,7 @@
 
 import htmlHelpers from '../lib/html-helpers.js';
 import makeRel from '../lib/rel.js';
+import { copyThemeFiles, addMeta } from '../lib/theme-files.js';
 
 const rel = makeRel(import.meta.url);
 const files = [
@@ -22,15 +23,7 @@ const files = [
 export default async function ({ cover, author, date, appendices, noAbstract }, ctx, data) {
   const doc = data.document;
   const { el, linkStyle, detabbify, mainify, abstractify, clean, sectionify, appendixify, footnotify } = htmlHelpers(doc);
-  await Promise.all(
-    files.map(f => {
-      let subtree = 'css/';
-      if (/svg|png/.test(f)) subtree = 'img/';
-      else if (/\.typ/.test(f)) subtree = '';
-      const to = `.nemik/${subtree}/${f}`;
-      return ctx.cpToRel(rel(`supramundane/${f}`), to);
-    })
-  );
+  await copyThemeFiles(ctx, rel, 'supramundane', files);
   linkStyle('.nemik/css/supramundane.css');
   detabbify();
   sectionify();
@@ -56,16 +49,7 @@ export default async function ({ cover, author, date, appendices, noAbstract }, 
   else {
     doc.body.classList.add('no-cover');
   }
-  if (author || date) {
-    const meta = el('div', { class: 'meta' }, [], header);
-    if (author) el('div', { class: 'author' }, [author], meta);
-    if (date) {
-      if (date === true) {
-        date = (new Date()).toISOString().replace(/T.*/, '');
-      }
-      el('div', { class: 'date' }, [date], meta);
-    }
-  }
+  addMeta(doc, { author, date });
   const imp = el('div', { class: 'imprimatur', style: "--color: #000; --zoom: 1" }, [], header);
   imp.innerHTML = `<img src=".nemik/img/asterism.png" alt="abstract shape"><div>supramundane <em>agency</em>.</div>`;
 
