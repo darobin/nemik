@@ -61,6 +61,31 @@ with only a variable font installed, Typst renders every weight the same.
 `.pdf(file)` is the older WeasyPrint path. It still works, using the themes'
 CSS, but nothing needs it any more.
 
+## Zotero citations
+
+Documents cited through the Zotero plugin for Google Docs get their
+bibliography from `.zotero()`, which runs after the document is fetched and
+converted:
+
+```js
+nemik
+  .gdoc(...)
+  .gdoc2html()
+  .zotero()
+  .theme('book', { ... })
+```
+
+Citations stay as Zotero rendered them: prefixes ("cited in"), locators and
+suffixes are kept around the linked key ("Slobodian 2020"), and a citation
+with the author suppressed links just the year. Each cited work is
+identified by its Zotero URI, so a work keeps a single bibliography entry
+however many times, and from however many machines, it was cited. The
+bibliography is set in Chicago author-date; works that share an author and
+year get `a`, `b`, … letters in the text and in the list. A `PROBLEM:` line
+during a run means a citation could not be read the way Zotero rendered it,
+or that the same item carries a different author or year in different
+citations (refresh the citations in Zotero, then run again).
+
 ## NaNoWriMo tracker
 
 Add `.nanowrimo()` after the HTML conversion to track a daily writing goal:
